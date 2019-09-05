@@ -18,7 +18,7 @@ let invalidToken = "034957430985";
 
 describe('Metadata-Repository', () => {
    jest.setTimeout(15000);
-	test('--- GET ALL DOMAINS ---', async (done) => {
+	test.only('--- GET ALL DOMAINS ---', async (done) => {
 		tokenAdmin = importToken.token;
 		
 		console.log("imported token for meta data: " + tokenAdmin);
@@ -420,7 +420,7 @@ describe('Metadata-Repository', () => {
 	});
 
 
-	test('--- DELETE DOMAIN BY ID ---', async (done) => {
+	test.only('--- DELETE DOMAIN BY ID ---', async (done) => {
 		const deleteDomainByID = {
 			method: 'DELETE',
 			uri: `http://metadata.openintegrationhub.com/api/v1/domains/${domainID}`,
