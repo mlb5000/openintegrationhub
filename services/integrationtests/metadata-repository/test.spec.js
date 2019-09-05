@@ -35,7 +35,7 @@ describe('Metadata-Repository', () => {
 	done();
 	});
 	
-	test('--- CREATE NEW DOMAIN ---', async (done) => {
+	test.only('--- CREATE NEW DOMAIN ---', async (done) => {
 		const toBeUploaded = {
 			"data": {
 				"name": "string",
@@ -334,7 +334,7 @@ describe('Metadata-Repository', () => {
 		done();
 	});
 	
-	test('--- PUT DOMAIN BY ID - INVALID DOMAIN ID ---', async (done) => { 	
+	test.only('--- PUT DOMAIN BY ID - INVALID DOMAIN ID ---', async (done) => { 	
 		let invalidDomainID ="lksfhdslfh";
 		const getDomainData = {
 			method: 'GET',
