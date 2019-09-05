@@ -5,15 +5,12 @@ const request = require('request-promise').defaults({ simple: false, resolveWith
 const username = process.env.username;
 const password = process.env.password;
 
-//const username = "philipp.hoegner@cloudecosystem.org";
-//const password = "_uRFRDTxZf4BB";
-
 let tokenAdmin = null;
 let token = null;
 
 describe('Login', () => {
     jest.setTimeout(15000);
-    test('--- 1. LOGIN & TOKEN ---', async (done) => {
+    test.only('--- 1. LOGIN & TOKEN ---', async (done) => {
         const jsonPayload = {
 			username,
 			password
