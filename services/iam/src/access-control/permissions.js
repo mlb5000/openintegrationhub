@@ -29,7 +29,8 @@ const PERMISSIONS = {
 
         'iam.token.introspect': 'iam.token.introspect',
 
-        'secrets.raw.read': 'secrets.raw.read',
+        'secrets.secret.deleteAny': 'secrets.secret.deleteAny',
+        'secrets.authClient.deleteAny': 'secrets.authClient.deleteAny',
 
     },
 
@@ -59,6 +60,11 @@ const PERMISSIONS = {
         'tenant.flows.create': 'tenant.flows.create',
         'tenant.flows.update': 'tenant.flows.update',
         'tenant.flows.delete': 'tenant.flows.delete',
+
+        'metadata.domains.crud': 'metadata.domains.crud',
+
+        'secrets.secret.readRaw': 'secrets.secret.readRaw',
+        'secrets.authClient.readRaw': 'secrets.authClient.readRaw',
     },
 
 };

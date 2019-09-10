@@ -12,20 +12,36 @@ import Auth from '../auth';
 import LoginCheck from '../../component/login-check';
 
 // Actions
-import { resetLogin } from '../../action/auth';
+import { resetLogin, checkLogin } from '../../action/auth';
+import { getUsers } from '../../action/users';
+import { getTenants } from '../../action/tenants';
+import { getRoles } from '../../action/roles';
+
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.checkLogin();
+        axios.interceptors.response.use(response => response, (error) => {
+            if (error.response.status === 401) {
+                console.log('REDIRECT TO LOGIN SCREEN', error);
+                props.resetLogin();
+            }
+            return Promise.reject(error);
+        });
+        props.getUsers();
+        props.getRoles();
+        props.getTenants();
+    }
+
     componentDidMount() {
         document.title = 'Web UI';
-        axios.interceptors.response.use(response => response,
-            (error) => {
-                if (error.status === 401) {
-                    console.log('REDIRECT TO LOGIN SCREEN');
-                    this.props.resetLogin();
-                }
-                // Do something with response error
-                return Promise.reject(error);
-            });
+    }
+
+    componentDidUpdate() {
+        if (!this.props.auth && !this.props.auth.isLoggedIn) {
+            this.props.checkLogin();
+        }
     }
 
     render() {
@@ -42,6 +58,10 @@ class App extends React.Component {
 const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => bindActionCreators({
     resetLogin,
+    getUsers,
+    getTenants,
+    getRoles,
+    checkLogin,
 }, dispatch);
 
 export default flow(
