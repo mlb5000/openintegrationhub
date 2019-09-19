@@ -9,7 +9,6 @@ Token = require('../iam/test.spec.js');
 const fs = require('fs');
 const path = require('path');
 
-
 let tokenAdmin = null;
 let domainID = null;
 let invalidToken = "034957430985";
