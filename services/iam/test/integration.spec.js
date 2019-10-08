@@ -1,9 +1,6 @@
 process.env.AUTH_TYPE = 'basic';
 const mongoose = require('mongoose');
-const Mockgoose = require('mockgoose').Mockgoose;
-
-const mockgoose = new Mockgoose(mongoose);
-const request = require('supertest')('http://127.0.0.1:3099');
+const request = require('supertest')('http://localhost:3099');
 const CONSTANTS = require('./../src/constants');
 const { PERMISSIONS, RESTRICTED_PERMISSIONS } = require('./../src/access-control/permissions');
 
@@ -16,12 +13,14 @@ describe('routes', () => {
     beforeAll(async (done) => {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
         process.env.IAM_AUTH_TYPE = 'basic';
-        process.env.IAM_BASEURL = 'http://127.0.0.1';
+        process.env.IAM_BASEURL = 'http://localhost';
         conf = require('./../src/conf/index');
         const App = require('../src/app'); 
-        app = new App();
-        await mockgoose.prepareStorage();
-        await app.setup(mongoose);
+        app = new App({
+            mongoConnection: `${global.__MONGO_URI__}-integration`,
+        });
+
+        await app.setup();
         await app.start();
 
         setTimeout(async () => {
@@ -621,6 +620,84 @@ describe('routes', () => {
 
         });
 
+        test('permanent service account token is created', async () => {
+
+            const userAccount = {
+                'username': 'sa-persistent-token@example.com',
+                'firstname': 'test',
+                'lastname': 'user',
+                'status': 'ACTIVE',
+                'password': 'usertest',
+                // 'role': CONSTANTS.ROLES.USER,
+            };
+
+            const userCreateResp = await request.post('/api/v1/users')
+                .send(userAccount)
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            /* Service account can create a ephemeral token for the given user id */
+            const portTokenResponse = await request.post('/api/v1/tokens')
+                .send({
+                    accountId: userCreateResp.body.id,
+                    expiresIn: -1,
+                })
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            console.log(portTokenResponse.body);
+
+            expect(portTokenResponse.body.token).toBeDefined();
+            expect(portTokenResponse.body.id).toBeDefined();
+
+            /* Repeat, should not create a duplicate */
+            const portTokenResponse2 = await request.post('/api/v1/tokens')
+                .send({
+                    accountId: userCreateResp.body.id,
+                    expiresIn: -1,
+                })
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            console.log(portTokenResponse2.body);
+
+            expect(portTokenResponse2.body.token).toBeDefined();
+            expect(portTokenResponse2.body.id).toBeDefined();
+
+            const portTokenResponse3 = await request.get(`/api/v1/tokens?accountId=${userCreateResp.body.id}`)
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            expect(portTokenResponse3.body.length).toEqual(1);
+
+            /* Multiple different tokens possible */
+            const portTokenResponse4 = await request.post('/api/v1/tokens')
+                .send({
+                    accountId: userCreateResp.body.id,
+                    expiresIn: '2h',
+                })
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            console.log(portTokenResponse4.body);
+
+            expect(portTokenResponse4.body.token).toBeDefined();
+            expect(portTokenResponse4.body.id).toBeDefined();
+
+            const portTokenResponse5 = await request.get(`/api/v1/tokens?accountId=${userCreateResp.body.id}`)
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(200);
+
+            expect(portTokenResponse5.body.length).toEqual(2);
+
+        });
+
         test('ephemeral tokens are only created for existing users and valid params', async () => {
 
             /* Create new user and a new service account */
@@ -821,6 +898,12 @@ describe('routes', () => {
                 .set('Accept', /application\/json/)
                 .expect(200);
 
+            /* Admin deletes the token */
+            await request.get(`/api/v1/tokens/${tokenResp.body[0]._id}`)
+                .set('Authorization', tokenAdmin)
+                .set('Accept', /application\/json/)
+                .expect(404);
+
             /* Service account fetch user data fails */
             await request.get('/api/v1/users/me')
                 .set('Authorization', `Bearer ${portTokenResponse.body.token}`)
@@ -849,9 +932,10 @@ describe('RSA Signing', () => {
         conf.jwt.algorithmType = process.env.IAM_JWT_ALGORITHM_TYPE;
         conf.jwt.algorithm = 'RS256';
         const App = require('../src/app');
-        app = new App();
-        await mockgoose.prepareStorage();
-        await app.setup(mongoose);
+        app = new App({
+            mongoConnection: `${global.__MONGO_URI__}-integration`,
+        });
+        await app.setup();
         await app.start();
         done();
     });

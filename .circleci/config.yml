@@ -196,6 +196,10 @@ jobs:
     docker: *node_env
     working_directory: ~/oih/services/ils
     steps: *yarn_test_steps
+  dispatcher-service-test:
+    docker: *node_env
+    working_directory: ~/oih/services/dispatcher-service
+    steps: *yarn_test_steps
 workflows:
   pipeline:
     jobs:
@@ -225,6 +229,9 @@ workflows:
           requires:
             - deps
       - audit-log-test:
+          requires:
+            - deps
+      - dispatcher-service-test:
           requires:
             - deps
       - lib-backend-commons-lib-test:
@@ -262,6 +269,7 @@ workflows:
             - lib-component-repository-test
             - data-hub-test
             - ils-test
+            - dispatcher-service-test
       - build:
           requires:
             - test

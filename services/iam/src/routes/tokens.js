@@ -28,6 +28,10 @@ router.get('/', auth.isAdmin, async (req, res, next) => {
         query.token = decodeURIComponent(req.query.token);
     }
 
+    if (req.query.accountId) {
+        query.accountId = req.query.accountId;
+    }
+
     try {
         const docs = await TokenDAO.find(query);
         docs.forEach((elem) => {
@@ -156,11 +160,11 @@ router.get('/refresh', async (req, res, next) => {
 router.get('/:id', auth.isAdmin, async (req, res, next) => {
 
     try {
-        const doc = await TokenDAO.find({ _id: req.params.id });
+        const doc = await TokenDAO.findOne({ _id: req.params.id });
         if (!doc) {
             return res.sendStatus(404);
         } else {
-            return res.send(doc[0]);
+            return res.send(doc);
         }
 
     } catch (err) {

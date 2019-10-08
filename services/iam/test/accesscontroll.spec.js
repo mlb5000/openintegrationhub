@@ -1,8 +1,5 @@
 process.env.AUTH_TYPE = 'basic';
 const mongoose = require('mongoose');
-const Mockgoose = require('mockgoose').Mockgoose;
-
-const mockgoose = new Mockgoose(mongoose);
 const request = require('supertest')('http://localhost:3099');
 
 const CONSTANTS = require('./../src/constants');
@@ -28,9 +25,10 @@ describe('Role Routes', () => {
         process.env.IAM_AUTH_TYPE = 'basic';
         conf = require('./../src/conf/index');
         const App = require('../src/app'); 
-        app = new App();
-        await mockgoose.prepareStorage();
-        await app.setup(mongoose);
+        app = new App({
+            mongoConnection: `${global.__MONGO_URI__}-accesscontrol`,
+        });
+        await app.setup();
         await app.start();
 
         setTimeout(async () => {
@@ -290,6 +288,8 @@ describe('Role Routes', () => {
             .set('Authorization', tokenAdmin)
             .set('Accept', /application\/json/)
             .expect(200);
+        expect(newTokenResp1.body.token).toBeDefined();
+        expect(newTokenResp1.body.id).toBeDefined();
 
         const introspect1 = await request.post('/api/v1/tokens/introspect')
             .send({

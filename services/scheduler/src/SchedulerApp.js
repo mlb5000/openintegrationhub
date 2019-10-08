@@ -21,10 +21,11 @@ class SchedulerApp extends App {
         const queueCreator = new QueueCreator(channel);
 
         const mongooseOptions = {
-            poolSize: 50,
-            socketTimeoutMS: 60000,
+            keepAlive: true,
+            keepAliveInitialDelay: 300000,
+            reconnectTries: 1000,
             connectTimeoutMS: 30000,
-            keepAlive: 120,
+            socketTimeoutMS: 60000,
             useCreateIndex: true,
             useNewUrlParser: true
         };

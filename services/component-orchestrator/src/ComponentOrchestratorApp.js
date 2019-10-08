@@ -5,6 +5,7 @@ const HttpApi = require('./HttpApi');
 const FlowsDao = require('./dao/FlowsDao');
 const ComponentsDao = require('./dao/ComponentsDao');
 const TokensDao = require('./dao/TokensDao');
+const SecretsDao = require('./dao/SecretsDao');
 const RabbitMqQueuesManager = require('./queues-manager/RabbitMqQueuesManager');
 const iamUtils = require('@openintegrationhub/iam-utils');
 
@@ -24,7 +25,12 @@ class ComponentOrchestratorApp extends App {
 
         const channel = await amqp.getConnection().createChannel();
         const queueCreator = new QueueCreator(channel);
-        await mongoose.connect(config.get('MONGODB_URI'), {useNewUrlParser: true});
+        const mongooseOptions = {
+            socketTimeoutMS: 60000,
+            useCreateIndex: true,
+            useNewUrlParser: true
+        };
+        await mongoose.connect(config.get('MONGODB_URI'), mongooseOptions);
         const iamClient = iamUtils.createClient({
             iamToken: config.get('IAM_TOKEN')
         });
@@ -34,6 +40,7 @@ class ComponentOrchestratorApp extends App {
             iamClient: asValue(iamClient),
             flowsDao: asClass(FlowsDao),
             componentsDao: asClass(ComponentsDao),
+            secretsDao: asClass(SecretsDao),
             tokensDao: asClass(TokensDao),
             httpApi: asClass(HttpApi).singleton(),
             driver: asClass(KubernetesDriver),
