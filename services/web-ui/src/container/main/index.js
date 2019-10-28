@@ -22,7 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Grid from '@material-ui/core/Grid';
 import {
-    Person, LockOpen, Business, SettingsInputComponent, LinearScale, Home as HomeIcon, AccountCircle, DeviceHub, Security,
+    Apps as AppsIcon, Person, LockOpen, Business, SettingsInputComponent, LinearScale, Home as HomeIcon, AccountCircle, DeviceHub, Security, EnhancedEncryption,
 } from '@material-ui/icons';
 
 // Actions & Components
@@ -35,7 +35,10 @@ import Users from '../../component/users';
 import Tenants from '../../component/tenants';
 import Flows from '../../component/flows';
 import Components from '../../component/components';
+import AppDirectory from '../../component/app-directory';
+import AppDetails from '../../component/app-directory/app-details';
 import MetaData from '../../component/metadata';
+import Secrets from '../../component/secrets';
 import Roles from '../../component/roles';
 import Profile from '../../component/profile';
 
@@ -106,6 +109,8 @@ const styles = theme => ({
     },
 });
 
+const menuArr = ['Start', 'Profile', 'Flows', 'App-Directory', 'Components', 'Metadata', 'Secrets', 'Logout'];
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -118,48 +123,39 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        const menuArr = ['Start', 'Profile', 'Flows', 'Components', 'Metadata', 'Logout'];
-        switch (this.props.auth.role) {
-        case 'ADMIN':
+        if (this.props.auth.isAdmin) {
             menuArr.splice(1, 0, 'Tenants');
             menuArr.splice(1, 0, 'Users');
-            break;
-        case 'TENANT_ADMIN':
-            menuArr.splice(1, 0, 'Users');
-            break;
-        default:
-            break;
         }
+        if (this.props.auth.isTenantAdmin) {
+            menuArr.splice(1, 0, 'Users');
+        }
+
         this.setState({
             menu: menuArr,
         });
     }
 
-    componentDidUpdate(prefProps) {
-        if (prefProps.auth !== this.props.auth) {
-            let context = null;
-            const menuArr = ['Start', 'Profile', 'Flows', 'Components', 'Metadata', 'Logout'];
-            switch (this.props.auth.role) {
-            case 'ADMIN':
-                menuArr.splice(1, 0, 'Tenants');
-                menuArr.splice(1, 0, 'Users');
-                break;
-            case 'TENANT_ADMIN':
-                menuArr.splice(1, 0, 'Users');
-                break;
-            default:
-                break;
-            }
-            if (this.props.auth.memberships && this.props.auth.memberships.length) {
-                context = this.props.auth.memberships.find(tenant => tenant.name === 'Global').name;
-                if (context !== 'Global') context = this.props.auth.memberships[0].name;
-            }
-            this.setState({
-                menu: menuArr,
-                context,
-            });
-        }
-    }
+    // componentDidUpdate(prefProps) {
+    //     if (prefProps.auth !== this.props.auth) {
+    //         let context = null;
+    //         if (this.props.auth.isAdmin) {
+    //             menuArr.splice(1, 0, 'Tenants');
+    //             menuArr.splice(1, 0, 'Users');
+    //         }
+    //         if (this.props.auth.isTenantAdmin) {
+    //             menuArr.splice(1, 0, 'Users');
+    //         }
+    //         if (this.props.auth.memberships && this.props.auth.memberships.length) {
+    //             context = this.props.auth.memberships.find(tenant => tenant.name === 'Global').name;
+    //             if (context !== 'Global') context = this.props.auth.memberships[0].name;
+    //         }
+    //         this.setState({
+    //             menu: menuArr,
+    //             context,
+    //         });
+    //     }
+    // }
 
   handleDrawerOpen = () => {
       this.setState({ open: true });
@@ -220,6 +216,11 @@ class Main extends React.Component {
                       <ListItemIcon><LinearScale /></ListItemIcon>
                       <ListItemText primary={text} />
                   </ListItem>;
+              case 'App-Directory':
+                  return <ListItem button key={text} onClick={() => { this.props.history.push('/app-directory'); }}>
+                      <ListItemIcon><AppsIcon /></ListItemIcon>
+                      <ListItemText primary={text} />
+                  </ListItem>;
               case 'Components':
                   return <ListItem button key={text} onClick={() => { this.props.history.push('/components'); }}>
                       <ListItemIcon><SettingsInputComponent /></ListItemIcon>
@@ -228,6 +229,11 @@ class Main extends React.Component {
               case 'Metadata':
                   return <ListItem button key={text} onClick={() => { this.props.history.push('/metadata'); }}>
                       <ListItemIcon><DeviceHub /></ListItemIcon>
+                      <ListItemText primary={text} />
+                  </ListItem>;
+              case 'Secrets':
+                  return <ListItem button key={text} onClick={() => { this.props.history.push('/secrets'); }}>
+                      <ListItemIcon><EnhancedEncryption /></ListItemIcon>
                       <ListItemText primary={text} />
                   </ListItem>;
               case 'Logout':
@@ -349,7 +355,10 @@ class Main extends React.Component {
                           <Route exact path="/roles" component={Roles} />
                           <Route exact path="/flows" component={Flows} />
                           <Route exact path="/components" component={Components} />
+                          <Route exact path="/app-directory" component={AppDirectory} />
+                          <Route exact path="/app-details/:id" component={AppDetails} />
                           <Route exact path="/metadata" component={MetaData} />
+                          <Route exact path="/secrets" component={Secrets} />
                           <Route exact path="/profile" component={Profile} />
                       </Switch>
                   </main>
