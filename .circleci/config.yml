@@ -314,8 +314,7 @@ workflows:
             - flow-repository
             - metadata-repository
       - deploy_prod:
-          requires:
-            - test 
+          requires: 
             - build
             - deploy
             - end
