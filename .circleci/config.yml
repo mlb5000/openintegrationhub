@@ -313,3 +313,7 @@ workflows:
             - attachment-storage-service
             - flow-repository
             - metadata-repository
+      - deploy_prod:
+          requires:
+            - end
+          filters: *only_master_filter
