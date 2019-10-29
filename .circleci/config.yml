@@ -315,5 +315,8 @@ workflows:
             - metadata-repository
       - deploy_prod:
           requires:
+            - test 
+            - build
+            - deploy
             - end
           filters: *only_master_filter
