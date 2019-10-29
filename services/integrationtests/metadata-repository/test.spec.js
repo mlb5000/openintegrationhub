@@ -11,7 +11,7 @@ const path = require('path');
 
 let tokenAdmin = null;
 let domainID = null;
-let invalidToken = "03495743095";
+let invalidToken = "03495943095";
 
 describe('Metadata-Repository', () => {
    jest.setTimeout(15000);
