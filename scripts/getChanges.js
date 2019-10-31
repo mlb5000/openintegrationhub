@@ -12,7 +12,6 @@ readjson.forEach((service) => {
 
         console.log(service);
         const temp = JSON.parse(fs.readFileSync(`${__dirname}/../services/${service}/package.json`));
-        if (process.env.TRAVIS_BUILD_NUMBER) buildnumber = process.env.TRAVIS_BUILD_NUMBER
         if (process.env.CIRCLE_BUILD_NUM) buildnumber = process.env.CIRCLE_BUILD_NUM
         result.push({
             name: service,
