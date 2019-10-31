@@ -55,7 +55,7 @@ aliases:
             - yarn-deps-{{ .Branch }}-{{ .Revision }}
       - run: |
           git diff --no-commit-id --name-only -r `git log -n 2 --oneline --pretty=format:"%h" --first-parent master | tail -n1` > gitchanges.txt
-          cd ./scripts # needed for compatible with travis implementation
+          cd ./scripts 
           node getChanges.js
           node build.js
       - save_cache:
@@ -67,14 +67,14 @@ aliases:
           keys:
             - build-deps-{{ .Branch }}-{{ .Revision }}
       - run: |
-          cd ./scripts  # needed for compatible with travis implementation
+          cd ./scripts
           node deploy.js
   - &deploy_steps_prod
       - restore_cache:
           keys:
             - build-deps-{{ .Branch }}-{{ .Revision }}
       - run: |
-          cd ./scripts  # needed for compatible with travis implementation
+          cd ./scripts  
           node deploy_prod.js     
 jobs:
   deps:
