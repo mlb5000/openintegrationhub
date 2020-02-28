@@ -51,6 +51,7 @@ class HttpApi {
             return next(new Error('Failed to parse basic auth'));
         }
         req.iamToken = user.pass;
+        this._logger.debug("auth", JSON.stringify(user));
         return next();
     }
 

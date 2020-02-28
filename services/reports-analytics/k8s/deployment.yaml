@@ -19,7 +19,7 @@ spec:
         - name: LOG_LEVEL
           value: "error"
         - name: GRAFANA_URL
-          value: "https://grafana.openintegrationhub.com"
+          value: "https://oih-uiupdate-grafana.odintext.com"
         - name: GRAFANA_TOKEN
           valueFrom:
             secretKeyRef:

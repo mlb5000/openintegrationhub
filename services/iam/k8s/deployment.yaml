@@ -26,9 +26,9 @@ spec:
         - name: IAM_PORT
           value: '3099'
         - name: IAM_BASEURL
-          value: 'https://iam.openintegrationhub.com'
+          value: 'https://oih-uiupdate-iam.odintext.com'
         - name: IAM_ORIGINWHITELIST
-          value: 'openintegrationhub.com'
+          value: 'odintext.com,oih-uiupdate-web-ui.odintext.com,oih-uiupdate-iam.odintext.com'
         - name: NODE_ENV
           value: "production"
         - name: RABBITMQ_URI
@@ -44,7 +44,7 @@ spec:
               name: iam
               key: cookiesecret
         - name: IAM_JWT_AUDIENCE
-          value: openintegrationhub.com
+          value: odintext.com
         - name: IAM_JWT_COOKIENAME
           value: oih-iam
         - name: IAM_ACC_ADMIN_USERNAME

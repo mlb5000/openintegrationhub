@@ -46,9 +46,8 @@ spec:
           timeoutSeconds: 1
       volumes:
       - name: grafana-pdisk
-        gcePersistentDisk:
-          pdName: timeseries-grafana
-          fsType: ext4
+        persistentVolumeClaim:
+          claimName: efs-grafana
 ---
 apiVersion: v1
 kind: Service

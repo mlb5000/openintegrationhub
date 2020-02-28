@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 const cronParser = require('cron-parser');
 
-const schema = new Schema({
-    graph: Schema.Types.Mixed,
-    cron: String,
-    dueExecution: Date
-});
-//@todo: indexes
+const schema = require('./schemas/flow').flow;
 
 class Flow {
     getFirstNode() {

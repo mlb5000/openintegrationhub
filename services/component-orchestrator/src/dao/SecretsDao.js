@@ -19,7 +19,8 @@ module.exports = class OIHSecretsDao {
             json: true,
             timeout: 5000,
             headers: {
-                authorization: `Bearer ${auth.token}`
+                authorization: `Bearer ${auth.token}`,
+                origin: this._config.get('HOST_BASE')
             }
         };
 

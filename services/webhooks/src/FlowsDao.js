@@ -11,7 +11,7 @@ class OIH_FlowsDao extends FlowsDao {
         //@todo: check if ID is a valid MongoID
         return Flow.findOne({
             _id: id,
-            status: 'started'
+            $or: [{status: 'active' }, {status: 'started'}]
         });
     }
 }

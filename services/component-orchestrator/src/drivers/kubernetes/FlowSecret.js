@@ -34,14 +34,21 @@ class FlowSecret {
      * Return K8s descriptor representation.
      * @returns K8s descriptor
      */
-    toDescriptor() {
+    toDescriptor(logger) {
         return {
             apiVersion: 'v1',
             kind: 'Secret',
             metadata: this.metadata,
             data: Object.entries(this.data).reduce((hash, entry) => {
                 const [ key, value ] = entry;
-                hash[key] = toBase64(value);
+                try {
+                    hash[key] = toBase64(value);
+                } catch (e) {
+                    if (logger) {
+                        logger.error(e, `Failed to convert to base64 key: ${key}, value: ${value}, type: ${typeof value}`);
+                    }
+                    throw e;
+                }
                 return hash;
             }, {})
         };

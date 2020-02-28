@@ -41,6 +41,10 @@ class RabbitMqQueuesManager extends QueuesManager {
             AMQP_URI
         });
 
+        if (!stepSettings.IAM_TOKEN) {
+            stepSettings.IAM_TOKEN = process.env.IAM_TOKEN;
+        }
+
         return stepSettings;
     }
 

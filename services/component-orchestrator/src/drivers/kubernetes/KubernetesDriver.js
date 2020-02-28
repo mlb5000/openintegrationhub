@@ -45,7 +45,7 @@ class KubernetesDriver extends BaseDriver {
         const secretName = flowSecret.name;
         this._logger.debug({secretName}, 'About to update the secret');
         const response = await this._coreClient.secrets(secretName).put({
-            body: flowSecret.toDescriptor()
+            body: flowSecret.toDescriptor(this._logger)
         });
         return new FlowSecret(response.body);
     }
@@ -80,7 +80,7 @@ class KubernetesDriver extends BaseDriver {
         });
 
         const response = await this._coreClient.secrets.post({
-            body: flowSecret.toDescriptor()
+            body: flowSecret.toDescriptor(this._logger)
         });
         this._logger.debug('Secret has been created');
 
@@ -200,14 +200,16 @@ class KubernetesDriver extends BaseDriver {
         envVars.EXEC_ID = uuid().replace(/-/g, '');
         envVars.STEP_ID = node.id;
         envVars.FLOW_ID = flow.id;
-        envVars.USER_ID = flow.startedBy;
-        envVars.COMP_ID = node.componentId;
+        envVars.USER_ID = flow.startedBy || 'unknown';
+        envVars.COMP_ID = node.componentId.toString();
         envVars.FUNCTION = node.function;
         envVars.API_URI = this._config.get('SELF_API_URI').replace(/\/$/, '');
         envVars.API_USERNAME = 'iam_token';
         envVars.API_KEY = envVars.IAM_TOKEN;
         envVars.CONTAINER_ID = 'does not matter';
         envVars.WORKSPACE_ID = 'does not matter';
+        envVars.ATTACHMENT_STORAGE_SERVICE_BASE_URL = this._config.get('ATTACHMENT_STORAGE_SERVICE_BASE_URL').replace(/\/$/, '');
+
         envVars = Object.entries(envVars).reduce((env, [k, v]) => {
             env['ELASTICIO_' + k] = v;
             return env;
