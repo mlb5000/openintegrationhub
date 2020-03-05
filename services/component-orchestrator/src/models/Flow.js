@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const schema = require('./schemas/flow').flow;
+const schema = new Schema({
+    graph: {
+        type: Schema.Types.Mixed
+    },
+    status: {
+        type: String
+    },
+    startedBy: {
+        type: String
+    }
+});
 
 class Flow {
     get isStarting() {

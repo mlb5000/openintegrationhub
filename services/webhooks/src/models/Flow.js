@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const schema = require('./schemas/flow').flow;
+const schema = new Schema({
+    graph: Schema.Types.Mixed,
+    status: String
+});
 
 class Flow {
     getFirstNode() {
