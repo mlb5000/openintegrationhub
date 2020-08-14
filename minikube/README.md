@@ -64,11 +64,13 @@ and then
 
 to adjust the resource limits before starting again.
 
-In particular, ensure that its ingress module is enabled (`minikube addons enable ingress`).  Also make certain that `kubectl` is configured to use minikube. To see if its correctly configured use
+In particular, ensure that its ingress module is enabled.  
 
-    `kubectl config current-context
-    or
-    cluster info`
+    minikube addons enable ingress
+
+Also make certain that `kubectl` is configured to use minikube. To see if its correctly configured use
+
+    kubectl config current-context
 
 For further information about how to set up minikube, see here:
 
@@ -98,22 +100,26 @@ If you are using...
 a **Linux** distribution, you can automate this by using this terminal command:
 
 ```console
-echo "$(minikube ip) iam.localoih.com smk.localoih.com flow-repository.localoih.com auditlog.localoih.com metadata.localoih.com component-repository.localoih.com webhooks.localoih.com attachment-storage-service.localoih.com data-hub.localoih.com ils.localoih.com web-ui.localoih.com" | sudo tee -a /etc/hosts
+echo "$(minikube ip) app-directory.localoih.com iam.localoih.com skm.localoih.com flow-repository.localoih.com auditlog.localoih.com metadata.localoih.com component-repository.localoih.com dispatcher-service.localoih.com webhooks.localoih.com attachment-storage-service.localoih.com data-hub.localoih.com ils.localoih.com web-ui.localoih.com" | sudo tee -a /etc/hosts
 ```
 
 a **Windows** distribution, you can find the host files under:
 
 ```console
 c:\windows\system32\etc\hosts
+
 or
+
 c:\windows\system32\drivers\etc\hosts
 
 then add
 
+your_minikube_ip app-directory.localoih.com
 your_minikube_ip iam.localoih.com
-your_minikube_ip smk.localoih.com
+your_minikube_ip skm.localoih.com
 your_minikube_ip flow-repository.localoih.com
 your_minikube_ip auditlog.localoih.com
+your_minikube_ip dispatcher-service.localoih.com
 your_minikube_ip metadata.localoih.com
 your_minikube_ip component-repository.localoih.com
 your_minikube_ip webhooks.localoih.com
@@ -137,9 +143,7 @@ Create a service account and token for the other services in the OIH IAM. Using 
 
 ### Login as Admin
 
- _Path_:
-
-`/login`
+POST `/login`
 
 _Request Body:_
 
@@ -162,9 +166,7 @@ Use the returned `token` as a Bearer token for the remaining requests.
 
 ### Create a Service Account
 
-_Path:_
-
-`/api/v1/users`
+POST `/api/v1/users`
 
 _Request Body:_
 
@@ -177,9 +179,7 @@ _Request Body:_
     "status":"ACTIVE",
     "password":"asd",
     "permissions":[
-      "iam.tokens.introspect",
-      "iam.token.introspect",
-      "components.get"
+      "all"
     ]
   }
   ```
@@ -188,26 +188,7 @@ _Request Body:_
 
 ```json
 {
-  "id": "string",
-  "username": "string",
-  "firstname": "string",
-  "lastname": "string",
-  "status": "active",
-  "tenant": "string",
-  "roles": [
-    {
-      "name": "string",
-      "permissions": [
-        "all"
-      ],
-      "scope": "string"
-    }
-  ],
-  "permissions": [
-    "all"
-  ],
-  "confirmed": true,
-  "img": "string"
+  "id": "string"
 }
 ```
 
@@ -215,9 +196,7 @@ Use the returned `id` in the following request to create the token.
 
 ### Create persistent Service Token
 
-_Path:_
-
-`/api/v1/tokens`
+POST `/api/v1/tokens`
 
 _Request Body:_
 
