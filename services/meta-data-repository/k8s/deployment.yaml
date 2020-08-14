@@ -29,13 +29,13 @@ spec:
         - name: INTROSPECT_TYPE
           value: "basic"
         - name: ORIGINWHITELIST
-          value: 'odinanswers.com,oih-web-ui.odinanswers.com'
+          value: 'odintext.com,oih-uiupdate-web-ui.odintext.com'
         - name: RABBITMQ_URI
           value: amqp://guest:guest@rabbitmq-service.oih-dev-ns.svc.cluster.local:5672
         - name: INTROSPECT_ENDPOINT_BASIC
-          value: "https://oih-iam.odinanswers.com/api/v1/tokens/introspect"
+          value: "https://oih-uiupdate-iam.odintext.com/api/v1/tokens/introspect"
         - name: BASE_URL
-          value: 'https://oih-metadata.odinanswers.com'
+          value: 'https://oih-uiupdate-metadata.odintext.com'
         - name: URLS_WITH_PORT
           value: 'false'
         - name: PORT
