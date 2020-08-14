@@ -19,21 +19,21 @@ spec:
         - name: PORT
           value: '3000'
         - name: ENDPOINT_SECRETS
-          value: 'https://oih-uiupdate-skm.odintext.com/api/v1'
+          value: 'https://oih-skm.odinanswers.com/api/v1'
         - name: ENDPOINT_IAM
-          value: 'https://oih-uiupdate-iam.odintext.com'
+          value: 'https://oih-iam.odinanswers.com'
         - name: ENDPOINT_FLOW
-          value: 'https://oih-uiupdate-flow-repository.odintext.com'
+          value: 'https://oih-flow-repository.odinanswers.com'
         - name: ENDPOINT_DISPATCHER
-          value: 'https://oih-uiupdate-dispatcher-service.odintext.com'
+          value: 'https://oih-dispatcher-service.odinanswers.com'
         - name: ENDPOINT_COMPONENT
-          value: https://oih-uiupdate-component-repository.odintext.com
+          value: https://oih-component-repository.odinanswers.com
         - name: ENDPOINT_APP_DIRECTORY
-          value: https://oih-uiupdate-app-directory.odintext.com/api/v1
+          value: https://oih-app-directory.odinanswers.com/api/v1
         - name: ENDPOINT_METADATA
-          value: https://oih-uiupdate-metadata.odintext.com/api/v1
+          value: https://oih-metadata.odinanswers.com/api/v1
         - name: REPORTS_UI
-          value: https://oih-uiupdate-grafana.odintext.com/d/apSj8axZk/overview?orgId=1
+          value: https://oih-grafana.odinanswers.com/d/apSj8axZk/overview?orgId=1
         ports:
         - containerPort: 3000
         livenessProbe:

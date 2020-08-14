@@ -26,9 +26,9 @@ spec:
         - name: IAM_PORT
           value: '3099'
         - name: IAM_BASEURL
-          value: 'https://oih-uiupdate-iam.odintext.com'
+          value: 'https://oih-iam.odinanswers.com'
         - name: IAM_ORIGINWHITELIST
-          value: 'odintext.com,oih-uiupdate-web-ui.odintext.com,oih-uiupdate-iam.odintext.com'
+          value: 'odinanswers.com,oih-web-ui.odinanswers.com,oih-iam.odinanswers.com'
         - name: NODE_ENV
           value: "production"
         - name: RABBITMQ_URI
@@ -44,18 +44,18 @@ spec:
               name: iam
               key: cookiesecret
         - name: IAM_JWT_AUDIENCE
-          value: odintext.com
+          value: odinanswers.com
         - name: IAM_JWT_COOKIENAME
           value: oih-iam
         - name: IAM_ACC_ADMIN_USERNAME
-          value: admin@openintegrationhub.com
+          value: oih-admin@odinanswers.com
         - name: IAM_ACC_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
               name: iam
               key: admin_password
         - name: IAM_ACC_SERVICE_ACCOUNT_USERNAME
-          value: service-oih-iam@openintegrationhub.com
+          value: service-oih-iam@odinanswers.com
         - name: IAM_ACC_SERVICE_ACCOUNT_PASSWORD
           valueFrom:
             secretKeyRef:

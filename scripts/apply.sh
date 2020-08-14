@@ -8,6 +8,8 @@ kubectl apply -f platform/rabbitmq.yaml --cluster arn:aws:eks:us-east-1:91135533
 kubectl apply -f platform/redis.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
 kubectl apply -f platform/influxdb.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
 kubectl apply -f platform/grafana.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.2/docs/examples/rbac-role.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
+kubectl apply -f platform/alb-ingress-controller.yml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
 kubectl apply -f platform/ingress.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
 kubectl apply -f minikube/1-Platform/volume.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate
 kubectl apply -f minikube/1-Platform/volumeClaim.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-uiupdate

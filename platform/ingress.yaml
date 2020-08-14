@@ -1,104 +1,104 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: oih-dev-ingress
+  name: oih-prod-ingress
   namespace: oih-dev-ns
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "oih-dev-ingress"
+    kubernetes.io/ingress.global-static-ip-name: "oih-prod-ingress"
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:911355339532:certificate/8e53c5fc-5cbc-49f9-8602-c057096668f3
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:911355339532:certificate/43fe18c5-c3a3-416b-b8dd-b3263a32ae17
   labels:
-    app: oih-uiupdate-ingress
+    app: oih-ingress
 spec:
   rules:
-  - host: oih-uiupdate-iam.odintext.com
+  - host: oih-iam.odinanswers.com
     http:
       paths:
         - backend:
             serviceName: iam
             servicePort: 3099
-  - host: oih-uiupdate-skm.odintext.com
+  - host: oih-skm.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: secret-service
           servicePort: 3000
-  - host: oih-uiupdate-flow-repository.odintext.com
+  - host: oih-flow-repository.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: flow-repository
           servicePort: 3001
-  - host: oih-uiupdate-auditlog.odintext.com
+  - host: oih-auditlog.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: audit-log
           servicePort: 3007
-  - host: oih-uiupdate-metadata.odintext.com
+  - host: oih-metadata.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: meta-data-repository
           servicePort: 3000
-  - host: oih-uiupdate-component-repository.odintext.com
+  - host: oih-component-repository.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: component-repository-service
           servicePort: 1234
-  - host: oih-uiupdate-webhooks.odintext.com
+  - host: oih-webhooks.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: webhooks-service
           servicePort: 1234
-  - host: oih-uiupdate-web-ui.odintext.com
+  - host: oih-web-ui.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: web-ui
           servicePort: 3000
-  - host: oih-uiupdate-attachment-storage-service.odintext.com
+  - host: oih-attachment-storage-service.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: attachment-storage-service
           servicePort: 3002
-  - host: oih-uiupdate-data-hub.odintext.com
+  - host: oih-data-hub.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: data-hub-service
           servicePort: 1234
-  - host: oih-uiupdate-ils.odintext.com
+  - host: oih-ils.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: ils
           servicePort: 3003
-  - host: oih-uiupdate-dispatcher-service.odintext.com
+  - host: oih-dispatcher-service.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: dispatcher-service
           servicePort: 3013
-  - host: oih-uiupdate-app-directory.odintext.com
+  - host: oih-app-directory.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: app-directory
           servicePort: 3000
-  - host: oih-uiupdate-grafana.odintext.com
+  - host: oih-grafana.odinanswers.com
     http:
       paths:
       - backend:
           serviceName: grafana
           servicePort: 80
-  - host: oih-uiupdate-reports-analytics.odintext.com
+  - host: oih-reports-analytics.odinanswers.com
     http:
       paths:
       - backend:
