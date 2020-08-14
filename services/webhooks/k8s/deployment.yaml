@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: webhooks
-          image: 'mlb5000/test-webhooks:198823cc3084'
+          image: "openintegrationhub/webhooks:latest"
           env:
             - name: MONGODB_URI
               valueFrom:
