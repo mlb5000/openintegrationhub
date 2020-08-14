@@ -34,6 +34,8 @@ spec:
           value: https://oih-metadata.odinanswers.com/api/v1
         - name: REPORTS_UI
           value: https://oih-grafana.odinanswers.com/d/apSj8axZk/overview?orgId=1
+        - name: ENDPOINT_WEBHOOKS
+          value: "https://oih-webhooks.odinanswers.com"
         ports:
         - containerPort: 3000
         livenessProbe:
@@ -50,5 +52,5 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            cpu: '0.1'
+            cpu: "0.1"
             memory: 500Mi
