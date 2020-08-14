@@ -48,14 +48,14 @@ spec:
         - name: IAM_JWT_COOKIENAME
           value: oih-iam
         - name: IAM_ACC_ADMIN_USERNAME
-          value: oih-admin@odinanswers.com
+          value: admin@openintegrationhub.com
         - name: IAM_ACC_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
               name: iam
               key: admin_password
         - name: IAM_ACC_SERVICE_ACCOUNT_USERNAME
-          value: service-oih-iam@odinanswers.com
+          value: service-oih-iam@openintegrationhub.com
         - name: IAM_ACC_SERVICE_ACCOUNT_PASSWORD
           valueFrom:
             secretKeyRef:

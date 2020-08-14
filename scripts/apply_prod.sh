@@ -11,8 +11,8 @@ kubectl apply -f platform/grafana.yaml --cluster arn:aws:eks:us-east-1:911355339
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.2/docs/examples/rbac-role.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
 kubectl apply -f platform/alb-ingress-controller.yml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
 kubectl apply -f platform/ingress.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
-kubectl apply -f minikube/1-Platform/volume.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
-kubectl apply -f minikube/1-Platform/volumeClaim.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
+kubectl apply -f minikube/1-Platform/2-volume.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
+kubectl apply -f minikube/1-Platform/3-volumeClaim.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
 kubectl apply -f platform/mongodb.yaml --cluster arn:aws:eks:us-east-1:911355339532:cluster/openintegrationhub-prod
 
 cd services/iam
