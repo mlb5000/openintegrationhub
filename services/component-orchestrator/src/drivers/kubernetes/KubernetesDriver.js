@@ -65,11 +65,7 @@ class KubernetesDriver extends BaseDriver {
         const secretName = secret.name;
         this._logger.debug({ secretName }, 'About to update the secret');
         const response = await this._coreClient.secrets(secretName).put({
-<<<<<<< HEAD
-            body: flowSecret.toDescriptor(this._logger)
-=======
             body: secret.toDescriptor()
->>>>>>> master
         });
         return new Secret(response.body);
     }
@@ -104,11 +100,7 @@ class KubernetesDriver extends BaseDriver {
         });
 
         const response = await this._coreClient.secrets.post({
-<<<<<<< HEAD
-            body: flowSecret.toDescriptor(this._logger)
-=======
             body: secret.toDescriptor()
->>>>>>> master
         });
         this._logger.debug('Secret has been created');
 
@@ -274,18 +266,9 @@ class KubernetesDriver extends BaseDriver {
 
         envVars.STEP_ID = node.id;
         envVars.FLOW_ID = flow.id;
-        envVars.USER_ID = flow.startedBy || 'unknown';
-        envVars.COMP_ID = node.componentId.toString();
+        envVars.USER_ID = flow.startedBy;
+        envVars.COMP_ID = node.componentId;
         envVars.FUNCTION = node.function;
-<<<<<<< HEAD
-        envVars.API_URI = this._config.get('SELF_API_URI').replace(/\/$/, '');
-        envVars.API_USERNAME = 'iam_token';
-        envVars.API_KEY = envVars.IAM_TOKEN;
-        envVars.CONTAINER_ID = 'does not matter';
-        envVars.WORKSPACE_ID = 'does not matter';
-        envVars.ATTACHMENT_STORAGE_SERVICE_BASE_URL = this._config.get('ATTACHMENT_STORAGE_SERVICE_BASE_URL').replace(/\/$/, '');
-=======
->>>>>>> master
 
         envVars = Object.entries(envVars).reduce((env, [k, v]) => {
             env[`${ENV_PREFIX}${k}`] = v;
@@ -322,6 +305,8 @@ class KubernetesDriver extends BaseDriver {
         envVars.EXEC_ID = uuid().replace(/-/g, '');
 
         envVars.API_URI = this._config.get('SELF_API_URI').replace(/\/$/, '');
+        envVars.ATTACHMENT_STORAGE_SERVICE_BASE_URL = this._config.get('ATTACHMENT_STORAGE_SERVICE_BASE_URL').replace(/\/$/, '');
+
 
         // envVars.CONTAINER_ID = 'does not matter';
         // envVars.WORKSPACE_ID = 'does not matter';
