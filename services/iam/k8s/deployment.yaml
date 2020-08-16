@@ -28,7 +28,7 @@ spec:
         - name: IAM_BASEURL
           value: 'https://oih-uiupdate-iam.odintext.com'
         - name: IAM_ORIGINWHITELIST
-          value: 'odintext.com,oih-uiupdate-web-ui.odintext.com,oih-uiupdate-iam.odintext.com'
+          value: 'odintext.com,oih-uiupdate-web-ui.odintext.com,oih-uiupdate-iam.odintext.com,.oih-dev-ns.svc.cluster.local'
         - name: NODE_ENV
           value: "production"
         - name: RABBITMQ_URI

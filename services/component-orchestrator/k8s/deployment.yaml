@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: component-orchestrator
-          image: 'mlb5000/test-component-orchestrator:f007aa07916a'
+          image: 'mlb5000/test-component-orchestrator:957bee6cd3f5'
           env:
             - name: COMPONENT_REPOSITORY_BASE_URL
               value: 'http://component-repository-service.oih-dev-ns.svc.cluster.local:1234'

@@ -66,7 +66,6 @@ const flow = new Schema({
   owners: { type: [owner] },
   status: { type: String, default: 'inactive' },
   cron: { type: String, maxlength: 20 },
-  dueExecution: Date,
 },
 { collection: 'flows', timestamps: true });
 
