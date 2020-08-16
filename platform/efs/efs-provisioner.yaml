@@ -29,6 +29,6 @@ spec:
       volumes:
         - name: pv-volume
           nfs:
-            #server: fs-91719411.efs.us-east-1.amazonaws.com # uiupdate
-            server: fs-0571bc85.efs.us-east-1.amazonaws.com # prod
+            server: fs-91719411.efs.us-east-1.amazonaws.com # uiupdate
+            #server: fs-0571bc85.efs.us-east-1.amazonaws.com # prod
             path: /
