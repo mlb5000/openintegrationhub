@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: secret-service
-          image: mlb5000/test-secret-service:a25086dbbce5
+          image: mlb5000/test-secret-service:125db9b0316a
           env:
             - name: ORIGINWHITELIST
               value: odintext.com,oih-uiupdate-web-ui.odintext.com,https://oih-uiupdate-web-ui.odintext.com,api-service.oih-dev-ns.svc.cluster.local,.oih-dev-ns.svc.cluster.local
