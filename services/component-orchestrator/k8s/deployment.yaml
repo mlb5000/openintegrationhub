@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: component-orchestrator
-          image: "mlb5000/test-component-orchestrator:69c340a4318d"
+          image: "mlb5000/test-component-orchestrator:4a38ccd9032f"
           env:
             - name: COMPONENT_REPOSITORY_BASE_URL
               value: "http://component-repository-service.oih-dev-ns.svc.cluster.local:1234"
@@ -49,8 +49,8 @@ spec:
               value: "http://api-service.oih-dev-ns.svc.cluster.local"
           resources:
             limits:
-              cpu: 0.1
-              memory: 512Mi
+              cpu: 0.5
+              memory: 1024Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: IfNotPresent
@@ -60,10 +60,12 @@ spec:
             httpGet:
               path: /healthcheck
               port: 1234
+            initialDelaySeconds: 90
           readinessProbe:
             httpGet:
               path: /healthcheck
               port: 1234
+            initialDelaySeconds: 90
       serviceAccountName: component-orchestrator-account
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
