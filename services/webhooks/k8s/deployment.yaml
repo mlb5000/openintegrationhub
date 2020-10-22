@@ -33,7 +33,7 @@ spec:
             - name: LOG_LEVEL
               value: trace
             - name: CORS_ORIGIN_WHITELIST
-              value: "https://oih-uiupdate-web-ui.odintext.com"
+              value: "https://oih-web-ui.odinanswers.com"
           resources:
             limits:
               cpu: 0.1

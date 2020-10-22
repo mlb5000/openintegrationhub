@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: attachment-storage-service
-          image: 'openintegrationhub/attachment-storage-service:latest'
+          image: "openintegrationhub/attachment-storage-service:latest"
           env:
             - name: REDIS_CONFIG
               valueFrom:
@@ -26,7 +26,7 @@ spec:
                   name: attachment-storage-service
                   key: REDIS_CONFIG
             - name: PORT
-              value: '3002'
+              value: "3002"
             - name: IAM_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -37,13 +37,13 @@ spec:
             - name: "INTROSPECT_TYPE"
               value: "basic"
             - name: "INTROSPECT_ENDPOINT_BASIC"
-              value: "https://oih-uiupdate-iam.odintext.com/api/v1/tokens/introspect"
+              value: "https://oih-iam.odinanswers.com/api/v1/tokens/introspect"
             - name: IAM_API_BASE
-              value: https://oih-uiupdate-iam.odintext.com/api/v1
+              value: https://oih-iam.odinanswers.com/api/v1
             - name: INTROSPECT_ENDPOINT_OIDC
-              value: https://oih-uiupdate-iam.odintext.com/op/userinfo
+              value: https://oih-iam.odinanswers.com/op/userinfo
             - name: IAM_TOKEN_API
-              value: https://oih-uiupdate-iam.odintext.com/api/v1/tokens/ephemeral
+              value: https://oih-iam.odinanswers.com/api/v1/tokens/ephemeral
           resources:
             limits:
               cpu: 0.1
