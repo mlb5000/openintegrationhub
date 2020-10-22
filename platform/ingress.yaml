@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: oih-prod-ingress
+  name: oih-uiupdate-ingress
   namespace: oih-dev-ns
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "oih-prod-ingress"
+    kubernetes.io/ingress.global-static-ip-name: "oih-uiupdate-ingress"
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
@@ -14,93 +14,93 @@ metadata:
     app: oih-ingress
 spec:
   rules:
-  - host: oih-uiupdate-iam.odintext.com
-    http:
-      paths:
-        - backend:
-            serviceName: iam
-            servicePort: 3099
-  - host: oih-uiupdate-skm.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: secret-service
-          servicePort: 3000
-  - host: oih-uiupdate-flow-repository.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: flow-repository
-          servicePort: 3001
-  - host: oih-uiupdate-auditlog.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: audit-log
-          servicePort: 3007
-  - host: oih-uiupdate-metadata.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: meta-data-repository
-          servicePort: 3000
-  - host: oih-uiupdate-component-repository.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: component-repository-service
-          servicePort: 1234
-  - host: oih-uiupdate-webhooks.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: webhooks-service
-          servicePort: 1234
-  - host: oih-uiupdate-web-ui.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: web-ui
-          servicePort: 3000
-  - host: oih-uiupdate-attachment-storage-service.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: attachment-storage-service
-          servicePort: 3002
-  - host: oih-uiupdate-data-hub.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: data-hub-service
-          servicePort: 1234
-  - host: oih-uiupdate-ils.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: ils
-          servicePort: 3003
-  - host: oih-uiupdate-dispatcher-service.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: dispatcher-service
-          servicePort: 3013
-  - host: oih-uiupdate-app-directory.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: app-directory
-          servicePort: 3000
-  - host: oih-uiupdate-grafana.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: grafana
-          servicePort: 80
-  - host: oih-uiupdate-reports-analytics.odintext.com
-    http:
-      paths:
-      - backend:
-          serviceName: reports-analytics
-          servicePort: 3000
+    - host: oih-uiupdate-iam.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: iam
+              servicePort: 3099
+    - host: oih-uiupdate-skm.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: secret-service
+              servicePort: 3000
+    - host: oih-uiupdate-flow-repository.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: flow-repository
+              servicePort: 3001
+    - host: oih-uiupdate-auditlog.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: audit-log
+              servicePort: 3007
+    - host: oih-uiupdate-metadata.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: meta-data-repository
+              servicePort: 3000
+    - host: oih-uiupdate-component-repository.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: component-repository-service
+              servicePort: 1234
+    - host: oih-uiupdate-webhooks.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: webhooks-service
+              servicePort: 1234
+    - host: oih-uiupdate-web-ui.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: web-ui
+              servicePort: 3000
+    - host: oih-uiupdate-attachment-storage-service.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: attachment-storage-service
+              servicePort: 3002
+    - host: oih-uiupdate-data-hub.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: data-hub-service
+              servicePort: 1234
+    - host: oih-uiupdate-ils.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: ils
+              servicePort: 3003
+    - host: oih-uiupdate-dispatcher-service.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: dispatcher-service
+              servicePort: 3013
+    - host: oih-uiupdate-app-directory.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: app-directory
+              servicePort: 3000
+    - host: oih-uiupdate-grafana.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: grafana
+              servicePort: 80
+    - host: oih-uiupdate-reports-analytics.odintext.com
+      http:
+        paths:
+          - backend:
+              serviceName: reports-analytics
+              servicePort: 3000
